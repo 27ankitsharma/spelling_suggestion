@@ -1,5 +1,5 @@
 # spelling_suggestion
-A python based spelling suggestion application. Web framework is created using  Flask.
+A basic python based spelling suggestion application. Web framework is created using  Flask.
 
 Requirements: flask
 
