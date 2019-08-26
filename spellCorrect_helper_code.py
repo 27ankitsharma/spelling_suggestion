@@ -33,7 +33,7 @@ def spell_suggestion(input_string):
         #print ("both_exist_list:",both_exist_list)
         #print ("single_exist_list:",single_exist_list)
         
-		#Flattening the lists
+        #Flattening the lists
         both_exist_list   = [item for sublist in both_exist_list for item in sublist]
         single_exist_list = [item for sublist in single_exist_list for item in sublist]
         final_suggestions = both_exist_list + single_exist_list
