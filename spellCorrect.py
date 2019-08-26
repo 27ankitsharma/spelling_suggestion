@@ -1,3 +1,6 @@
+##------------- Author: Ankit Sharma, email: 27ankitsharma@gmail.com -------------##
+
+
 import os
 import numpy as np
 import flask
@@ -13,17 +16,16 @@ app=Flask(__name__)
 @app.route('/index')
 
 def index():
+    "default page.." 
     return flask.render_template('input.html')
 
 	
 @app.route('/index', methods = ['POST'])	
 
 def result():
-    #form = InputForm(request.form)
     if request.method == 'POST':
         
         input_word = request.form["input_string"] 
-        
         suggestions = ss.spell_suggestion(input_word)
         return render_template("input.html", input_word = input_word, suggestions=suggestions)
 		

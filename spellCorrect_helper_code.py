@@ -1,22 +1,25 @@
+##------------- Author: Ankit Sharma, email: 27ankitsharma@gmail.com -------------##
+
 import re
 from collections import Counter
 
 ## ---------- Handling combined words. This will use spell correction part defined below---------##	
 def spell_suggestion(input_string):
-    if (input_string.strip() is ""):
+    if (input_string.strip() is ""):  # handling blank or all whitespace characters input
         print ("Please enter a valid string..!")
         return
     		
-    input_string = re.sub('[^A-Za-z]+', '', input_string).lower()  # Keeping only the characters.
+    input_string = re.sub('[^A-Za-z]+', '', input_string).lower()  # Keeping only the characters not the numbers.
+	WORDS = Counter(words(open('words_corpus.txt').read()))   # creating dictionary from the corpus
 	
-    if (input_string in WORDS) or  (len(input_string) < 4):
+    if (input_string in WORDS) or  (len(input_string) < 4): # assuming merged words are longer than 3 characters.
         final_suggestions = candidates(input_string)
     
     else:
         both_exist_list = []
         single_exist_list = []
         
-        for i in range(1, len(input_string)-2):
+        for i in range(1, len(input_string)-2):  # splitting input string into two words
             w1 = input_string[0:i+1]
             w2 = input_string[i+1:len(input_string)]
             
@@ -49,12 +52,11 @@ def spell_suggestion(input_string):
 ## -------------------- Spelling correction part ----------------------------##	
 
 def words(text): 
+    "Splitting string text into words and lowercasing all the words."
     return re.findall(r'\w+', text.lower())
 
-WORDS = Counter(words(open('words_corpus.txt').read()))
-
 def P(word, N=sum(WORDS.values())): 
-    "Probability of `word`."
+    "Probability of `word`. This is not being used currently but I thought of using it to improve the ranking of the returned results"
     return WORDS[word] / N
 
 def correction(word): 
