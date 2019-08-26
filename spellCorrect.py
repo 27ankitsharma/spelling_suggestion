@@ -9,9 +9,6 @@ from wtforms import Form, FloatField, validators
 
 app=Flask(__name__)
 
-#class InputForm(Form):
-#    r = FloatField(validators=[validators.InputRequired()])
-
 @app.route('/')
 @app.route('/index')
 
