@@ -1,13 +1,8 @@
 ##------------- Author: Ankit Sharma, email: 27ankitsharma@gmail.com -------------##
 
-
 import os
-import numpy as np
-import flask
-import pickle
 from flask import Flask, render_template, request
 import spellCorrect_helper_code as ss
-from wtforms import Form, FloatField, validators
 
 
 app=Flask(__name__)
