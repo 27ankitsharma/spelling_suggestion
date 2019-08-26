@@ -50,6 +50,7 @@ def spell_suggestion(input_string):
 	
 	
 ## -------------------- Spelling correction part ----------------------------##	
+# References: http://norvig.com/spell-correct.html
 
 def words(text): 
     "Splitting string text into words and lowercasing all the words."
