@@ -1,15 +1,17 @@
 import re
 from collections import Counter
 
-## ---------- Spelling suggestion part. This will use spell co part defined below---------##	
+## ---------- Handling combined words. This will use spell correction part defined below---------##	
 def spell_suggestion(input_string):
     if (input_string.strip() is ""):
         print ("Please enter a valid string..!")
         return
+    		
     input_string = re.sub('[^A-Za-z]+', '', input_string).lower()  # Keeping only the characters.
-   
-    if len(input_string) < 4:
+	
+    if (input_string in WORDS) or  (len(input_string) < 4):
         final_suggestions = candidates(input_string)
+    
     else:
         both_exist_list = []
         single_exist_list = []
@@ -27,21 +29,17 @@ def spell_suggestion(input_string):
                 
             elif (w2 in WORDS and w1 not in candidates(w1)): # when only single word is present in the dictionary
                 print (w2, "exists in dictionary")
-                #single_exist_list.append(([candidates(w1)], w2)) 
                 single_exist_list.append([x + ' ' + w2 for x in candidates(w1)]) 
                 
-        #print ("both_exist_list:",both_exist_list)
-        #print ("single_exist_list:",single_exist_list)
         
         #Flattening the lists
         both_exist_list   = [item for sublist in both_exist_list for item in sublist]
         single_exist_list = [item for sublist in single_exist_list for item in sublist]
-        final_suggestions = both_exist_list + single_exist_list
+        final_suggestions = list(set(candidates(input_string) + both_exist_list + single_exist_list))
         
         if len(final_suggestions)==0 : # if both lists are empty
             final_suggestions = candidates(input_string)
-            #print ("candidates(input_string)", candidates(input_string))
-                
+                            
     return final_suggestions
 	
 	
