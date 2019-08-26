@@ -3,6 +3,7 @@
 import re
 from collections import Counter
 
+
 ## ---------- Handling combined words. This will use spell correction part defined below---------##	
 def spell_suggestion(input_string):
     if (input_string.strip() is ""):  # handling blank or all whitespace characters input
@@ -10,7 +11,6 @@ def spell_suggestion(input_string):
         return
     		
     input_string = re.sub('[^A-Za-z]+', '', input_string).lower()  # Keeping only the characters not the numbers.
-	WORDS = Counter(words(open('words_corpus.txt').read()))   # creating dictionary from the corpus
 	
     if (input_string in WORDS) or  (len(input_string) < 4): # assuming merged words are longer than 3 characters.
         final_suggestions = candidates(input_string)
@@ -35,7 +35,7 @@ def spell_suggestion(input_string):
                 single_exist_list.append([x + ' ' + w2 for x in candidates(w1)]) 
                 
         
-        #Flattening the lists
+        # Flattening the lists
         both_exist_list   = [item for sublist in both_exist_list for item in sublist]
         single_exist_list = [item for sublist in single_exist_list for item in sublist]
         final_suggestions = list(set(candidates(input_string) + both_exist_list + single_exist_list))
@@ -54,6 +54,9 @@ def spell_suggestion(input_string):
 def words(text): 
     "Splitting string text into words and lowercasing all the words."
     return re.findall(r'\w+', text.lower())
+
+WORDS = Counter(words(open('words_corpus.txt').read()))   # creating dictionary from the corpus
+
 
 def P(word, N=sum(WORDS.values())): 
     "Probability of `word`. This is not being used currently but I thought of using it to improve the ranking of the returned results"
